@@ -1,0 +1,60 @@
+statics: "/" # 静态文件根目录，可用于 CDN 加速
+assets: "assets" # 图片资源存放目录
+css: "css" # css 存放目录 (不建议改动)
+js: "js" # js 存放目录 (不建议改动)
+
+modules:
+  player: false # 启用音乐播放器
+  fireworks: false # 启用鼠标点击烟花特效
+  unlazyHash: true # 启用unlazy hash预览图支持
+  visibilityListener: false # 启用可见度监听器
+  tabs: true # 启用选项卡扩展支持，如需开启 summary 功能请一并开启
+  quiz: false # 启用文章内问题扩展支持
+  fancybox: true # 启用 fancybox 支持（不建议禁用）
+
+homeConfig:
+  gradient: false # 使用CSS渐变作为文章封面
+  # fixedCover 性能比默认的更好，且开启时将启用LCP优化和预加载
+  fixedCover: "https://tncache1-f1.v3mh.com/image/2024/05/01/ab7233944d0325efcd5cf1c5a5f0ee0f.jpeg" # 主页面cover(为空则使用bing随机图片)
+
+menu:
+  home: / || home
+  posts:
+    default: / || feather
+    archives: /archives/ || list-alt
+    categories: /categories/ || th
+    tags: /tags/ || tags
+  about: /about/ || user
+  friends: /friends/ || heart
+  links: /links/ || magic
+
+social:
+  github: https://github.com/cnxianyi || github || "#191717"
+
+sidebar:
+  position: left # left/right分别对应左侧/右侧
+  avatar: avatar.webp
+
+alternate: XIANYI's Blog
+
+widgets:
+  random_posts: true # 随机文章
+  recent_comments: false # 显示最近评论
+
+footer:
+  since: 2024 # 开始时间
+  count: true # 开启
+# 文章界面统计
+post:
+  count: true # 开启
+
+darkmode: true # 暗黑模式
+
+performance:
+  # 使用 preconnect 预加载的地址 (不建议超过三个)
+  preConnect:
+  # 使用 dns-prefetch 预解析的地址
+  dnsPrefetch:
+    - "https://cdn.jsdelivr.net"
+    - "https://unpkg.com"
+

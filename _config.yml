@@ -3,18 +3,21 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: ShokaX Can
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: zh-cn
-timezone: 'Asia/Shanghai'
+title: XIANYI
+subtitle: Blog
+description: 折腾日记
+keywords: Web
+author: XIANYI
+language: zh-CN
+timezone: 'UTC'
+
+theme_config:
+  override_layout_dir: source/_override/layout
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
-permalink: :year/:month/:day/:title/
+url: https://xianyi.it
+permalink: :category/:title/ ## :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -45,13 +48,13 @@ relative_link: false
 future: true
 syntax_highlighter: false
 highlight:
-  line_number: false
+  line_number: true
   auto_detect: false
   tab_replace: ''
   wrap: true
   hljs: false
 prismjs:
-  preprocess: false
+  preprocess: true
   line_number: true
   tab_replace: ''
 
@@ -66,7 +69,10 @@ index_generator:
 
 # Category & Tag
 default_category: uncategorized
-category_map:
+category_map: # 精选分类 映射
+  Linux: Linux
+categories: # 配置文件深度
+  - Linux # _posts/Linux 深文件夹为 - [Linux , 子文件夹名] 需要在文件夹中配置cover.jpg
 tag_map:
 
 # Metadata elements
@@ -103,9 +109,24 @@ theme: shokax
 deploy:
   type: ''
 
+algolia:
+  appId: AGUF44ILYQ
+  apiKey: b0639929e0aebac1ee35798a37dddd1d
+  adminApiKey: 2a3352bc79a596fbc59838a4bd79cd40
+  chunkSize: 5000
+  indexName: "shokaX"
+  fields:
+    - title #必须配置
+    - path #必须配置
+    - categories #推荐配置
+    - content:strip:truncate,0,2000
+    - gallery
+    - photos
+    - tags
+
 markdown:
   render: # 渲染器设置
-    html: false # 过滤 HTML 标签
+    html: true # 过滤 HTML 标签
     xhtmlOut: true # 使用 '/' 来闭合单标签 （比如 <br />）。
     breaks: true # 转换段落里的 '\n' 到 <br>。
     linkify: true # 将类似 URL 的文本自动转换为链接。
@@ -136,6 +157,33 @@ markdown:
         options:
           title: "你知道得太多了"
 
+minify:
+  js:
+    enable: false # ShokaX 自带 esbuild 优化，不建议开启，其他主题建议开启
+    exclude: # 排除文件，接受 string[]，需符合 micromatch 格式
+  css:
+    enable: true # 开启 CSS 优化
+    options:
+      targets: ">= 0.5%" # browserslist 格式的 target
+    exclude: # 排除文件，接受 string[]，需符合 micromatch 格式
+  html:
+    minifier: html-minifier
+    enable: true # 开启 HTML 优化
+    options:
+      comments: false # 是否保留注释内容
+    exclude: # 排除文件，接受 string[]，需符合 micromatch 格式
+  image:
+    enable: false # 开启图片预处理和自动 WebP 化
+    options:
+      avif: false
+      webp: true # 预留配置项，现版本无作用
+      quality: 80 # 质量，支持1-100的整数、lossless或nearLossless
+      effort: 2 # CPU 工作量，0-6之间的整数(越低越快)
+      replaceSrc: false # 自动替换生成html中的本地图片链接为webp链接
+      # 对于使用 CI 工作流部署的用户，请注意本配置可能导致图片 404，如果出现请关闭
+      # 我们更建议使用 Service Worker 来在用户侧实现 replaceSrc 的功能，这将能够以一种侵入式更小的方式实现链接替换
+    exclude:
+
 feed:
   limit: 20
   order_by: "-date"
@@ -153,3 +201,9 @@ feed:
     enable: true
     template: "node_modules/hexo-theme-shokax/layout/_alternate/json.ejs"
     output: "feed.json"
+
+post_meta:
+  item_text: true
+  created_at: true
+  updated_at: true
+  categories: true
